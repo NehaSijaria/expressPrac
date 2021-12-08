@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const uuid = require('uuid')
 const members = require('../../Members');
 //all routes here start with "/api/members"
 //Get all members
@@ -22,12 +23,41 @@ router.get('/:id', (req,res) => {
 
 //create member - post (sending data) its in req obj's body==> req.body
 router.post('/', (req, res) => {
-  //res.send(req.body);
-//under header-content-Type:val(application/json)==> body:raw {"name":"joe", "msg":"hello"} ==> we need body-parser to parse data(app.use(express.json()))
- const newMember ={
-   
+  //res.send(req.body);//req.body==>{"name":"joe", "email":"hello"}
+//under header-content-Type:val(application/json)==> body:raw {"name":"joe", "email":"hello"} ==> we need body-parser to parse data(app.use(express.json()))
+ const newMember = {
+  id: uuid.v4(),
+  name:req.body.name,
+  email: req.body.email,
+  status:'active'
+ };
+  //we always wanted to send name,msg so chl the condition
+ if(!newMember.name || !newMember.email) {
+    res.status(400).json({ msg:"please include name and email"});
  }
+
+ members.push(newMember);
+ res.json(members);
 })
 
+//update Member
+router.put('/:id', (req,res) => {
+  //return boolean
+  const found = members.some(member => member.id === parseInt(req.params.id))
+
+  if(found){
+  const updateMember = req.body;
+  members.forEach(member => {
+    if(member.id === parseInt(req.params.id)){
+      member.name = updateMember.name ? updateMember.name : member.name;
+      member.email = updateMember.email ? updateMember.email : member.email;
+
+      res.json({msg: "updated", member });
+    };
+  });
+} else {
+  res.status(400).json({msg:`No member with id:${req.params.id}`});
+}
+});
 
 module.exports = router;
