@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const members = require('../../Members');
-
+//all routes here start with "/api/members"
 //Get all members
 router.get('/', (req,res) => res.json(members)
 )
@@ -20,9 +20,13 @@ router.get('/:id', (req,res) => {
 }
 })
 
-//create member
+//create member - post (sending data) its in req obj's body==> req.body
 router.post('/', (req, res) => {
-  res.send(req.body)
+  //res.send(req.body);
+//under header-content-Type:val(application/json)==> body:raw {"name":"joe", "msg":"hello"} ==> we need body-parser to parse data(app.use(express.json()))
+ const newMember ={
+   
+ }
 })
 
 
