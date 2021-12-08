@@ -1,13 +1,13 @@
 const express = require('express');
 const path = require('path'); //to deal with filepath
-//const moment = require('moment')
+const moment = require('moment') //for current date
 const members = require('./Members')
 //Init express
 const app = express();
 
 const logger = (req, res, next) => {
   //console.log('hello');
-  console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
+  console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}:${moment().format()}`);
   next();
 }
 
