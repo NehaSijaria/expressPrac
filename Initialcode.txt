@@ -1,5 +1,4 @@
-//set static folder
-app.use(express.static(path.join(__dirname, 'public')))
+
 
 /endpoints/route handler to homepage/Index page
 // app.get(//Fetch from db,Load pages,return json,full access to eq,res)res=>http.res(render template,send json data, redirect,send data,file)
