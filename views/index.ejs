@@ -1,0 +1,20 @@
+<h1><%= title %></h1>
+<form action="/api/members" method="POST" class="mb-4">
+  <div class="form-group">
+    <label for="name">name</label>
+    <input type="text" name="name" placeholder="name" class="form-control">
+    <label for="email">email</label>
+    <input type="text" name="email" placeholder="email" class="form-control">
+    <input type="submit" value="add member">
+  </div> 
+  <!-- it will hit the /api/member route and to create form it will use req.body.email/name  add member and return json -->
+</form>
+
+<h2>Members</h2>
+<ul>
+  <% members.forEach(function(member){ %>
+    <li><%- member.name %></li>
+    <%});%>
+</ul>
+
+<a href="/api/members">visit api</a>
